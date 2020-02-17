@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Three Orientation Gizmo Example</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        orientation-gizmo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+
+        orientation-gizmo:hover {
+            background: rgba(255, 255, 255, .2);
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../node_modules/three/build/three.js"></script>
+    <script src="../node_modules/three/examples/js/controls/OrbitControls.js"></script>
+    <script src="../dist/OrientationGizmo.js"></script>
+
+    <script>
+        // Generate a scene and camera
+        var scene = new THREE.Scene();
+
+        // Create PerspectiveCamera
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 3, 3);
+
+        // Create the renderer and add it to the page
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Use orbit controls
+        var controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.update();
+        controls.autoRotate = true;
+
+        // Add Grid Helper
+        var size = 10;
+        var divisions = 10;
+        var gridHelper = new THREE.GridHelper(size, divisions);
+        scene.add(gridHelper);
+
+        // Add Axis Helper
+        var axesHelper = new THREE.AxesHelper(5);
+        scene.add(axesHelper);
+
+        // Create the cube geometry and material
+        geometry = new THREE.BoxGeometry(1, 1, 1);
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            vertexColors: THREE.FaceColors
+        });
+
+        // Generate colors for each face of cube
+        var colors = [new THREE.Color(1, 0, 0), new THREE.Color(0, 1, 0), new THREE.Color(0, 0, 1)];
+        for (var i = 0; i < 3; i++) {
+            geometry.faces[4 * i].color = colors[i];
+            geometry.faces[4 * i + 1].color = colors[i];
+            geometry.faces[4 * i + 2].color = colors[i];
+            geometry.faces[4 * i + 3].color = colors[i];
+        }
+
+        // Create the cube mesh and add to scene
+        var cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Create our orientation gizmo
+        var orientationGizmo = new OrientationGizmo(camera, 100);
+        document.body.appendChild(orientationGizmo);
+
+        orientationGizmo.onAxisSelected = function(axis) {
+            console.log(axis);
+        }
+
+        // Handle Resizing of the window
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            orientationGizmo.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>
