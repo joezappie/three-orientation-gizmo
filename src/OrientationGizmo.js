@@ -6,7 +6,7 @@ class OrientationGizmo extends HTMLElement {
 	constructor(camera, options) {
 		super();
 		this.camera = camera;
-		this.options = Object.assign(options, {
+		this.options = Object.assign({
 			size: 90,
 			padding: 8,
 			bubbleSizePrimary: 8,
@@ -22,7 +22,7 @@ class OrientationGizmo extends HTMLElement {
 				y: ["#6ccb26", "#417a17"],
 				z: ["#178cf0", "#0e5490"],
 			}
-		});
+		}, options);
 
 		// Function called when axis is clicked
 		this.onAxisSelected = null;

@@ -48,7 +48,7 @@
         // Use orbit controls
         var controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.update();
-        controls.autoRotate = true;
+        //controls.autoRotate = true;
 
         // Add Grid Helper
         var size = 10;
@@ -81,8 +81,9 @@
         scene.add(cube);
 
         // Create our orientation gizmo
-        var orientationGizmo = new OrientationGizmo(camera, 100);
+        var orientationGizmo = new OrientationGizmo(camera);
         document.body.appendChild(orientationGizmo);
+
 
         orientationGizmo.onAxisSelected = function(axis) {
             console.log(axis);
