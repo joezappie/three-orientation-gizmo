@@ -64,7 +64,7 @@ class OrientationGizmo extends HTMLElement {
 
 	onMouseClick(evt) {
 		if (!!this.onAxisSelected && typeof this.onAxisSelected == "function") {
-			this.onAxisSelected({ axis: this.selectedAxis.axis, direction: this.selectedAxis.direction });
+			this.onAxisSelected({ axis: this.selectedAxis.axis, direction: this.selectedAxis.direction.clone() });
 		}
 	}
 
@@ -96,7 +96,6 @@ class OrientationGizmo extends HTMLElement {
 		// Calculate the rotation matrix from the camera
 		let rotMat = new THREE.Matrix4().makeRotationFromEuler(this.camera.rotation);
 		let invRotMat = new THREE.Matrix4().getInverse(rotMat);
-
 
 		for (var bubble of this.bubbles) {
 			bubble.position = this.getBubblePosition(bubble.direction.clone().applyMatrix4(invRotMat));
