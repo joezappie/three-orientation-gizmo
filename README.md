@@ -3,7 +3,7 @@ This library creates a orientation gizmo for showing the user how the camera is 
 
 The gizmo has several configurable properties for changing colors, sizing and what axes are visible.
 
-![GIF of Orientation Gizmo](https://github.com/jrj2211/three-orientation-gizmo/blob/master/examples/example-gif.gif "Orientation Gizmo")
+![GIF of Orientation Gizmo](https://github.com/jrj2211/three-orientation-gizmo/blob/master/examples/example-gif.gif?raw=true "Orientation Gizmo")
 
 **Dependancies**
 
