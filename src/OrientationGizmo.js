@@ -17,6 +17,7 @@ class OrientationGizmo extends HTMLElement {
 			fontFamily: "arial",
 			fontWeight: "bold",
 			fontColor: "#151515",
+			fontYAdjust: 0,
 			colors: {
 				x: ["#f73c3c", "#942424"],
 				y: ["#6ccb26", "#417a17"],
@@ -143,7 +144,7 @@ class OrientationGizmo extends HTMLElement {
 			// Find the color
 			if (this.selectedAxis == bubble) {
 				color = "#FFFFFF";
-			} else if (bubble.position.z >= 0) {
+			} else if (bubble.position.z >= -0.01) {
 				color = bubble.color[0]
 			} else {
 				color = bubble.color[1]
@@ -163,7 +164,7 @@ class OrientationGizmo extends HTMLElement {
 				this.context.fillStyle = this.options.fontColor;
 				this.context.textBaseline = 'middle';
 				this.context.textAlign = 'center';
-				this.context.fillText(bubble.label, bubble.position.x, bubble.position.y + 1);
+				this.context.fillText(bubble.label, bubble.position.x, bubble.position.y + this.options.fontYAdjust);
 			}
 		}
 	}
