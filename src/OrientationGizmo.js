@@ -43,15 +43,25 @@ class OrientationGizmo extends HTMLElement {
 
 		// All we need is a canvas
 		this.innerHTML = "<canvas width='" + this.options.size + "' height='" + this.options.size + "'></canvas>";
+
+		this.onMouseMove = this.onMouseMove.bind(this);
+		this.onMouseOut = this.onMouseOut.bind(this);
+		this.onMouseClick = this.onMouseClick.bind(this);
 	}
 
 	connectedCallback() {
 		this.canvas = this.querySelector("canvas");
 		this.context = this.canvas.getContext("2d");
 
-		this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this), false);
-		this.canvas.addEventListener('mouseout', this.onMouseOut.bind(this), false);
-		this.canvas.addEventListener('click', this.onMouseClick.bind(this), false);
+		this.canvas.addEventListener('mousemove', this.onMouseMove, false);
+		this.canvas.addEventListener('mouseout', this.onMouseOut, false);
+		this.canvas.addEventListener('click', this.onMouseClick, false);
+	}
+
+	disconnectedCallback() {
+		this.canvas.removeEventListener('mousemove', this.onMouseMove, false);
+		this.canvas.removeEventListener('mouseout', this.onMouseOut, false);
+		this.canvas.removeEventListener('click', this.onMouseClick, false);
 	}
 
 	onMouseMove(evt) {

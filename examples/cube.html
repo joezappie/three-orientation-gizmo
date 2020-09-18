@@ -163,9 +163,10 @@
         document.body.appendChild(orientationGizmo);
 
         orientationGizmo.onAxisSelected = function(axis) {
-            var distance = cameraSwitcher.perspective.position.distanceTo(controls.target);
-            cameraSwitcher.perspective.position.copy(axis.direction.multiplyScalar(distance).add(controls.target));
-            cameraSwitcher.perspective.lookAt(controls.target);
+            const camera = cameraSwitcher.scene.activeCamera;
+            var distance = camera.position.distanceTo(controls.target);
+            camera.position.copy(axis.direction.multiplyScalar(distance).add(controls.target));
+            camera.lookAt(controls.target);
             cameraSwitcher.toOrtho();
         }
 
