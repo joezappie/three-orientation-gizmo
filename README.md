@@ -44,6 +44,7 @@ And lastly, you need to call the update() function in your render loop.
 requestAnimationFrame(() => {
  orientationGizmo.update();
 });
+```
 
 In the future I might support rotating the camera and changing between ortho and perspective camera but this can vary widely between applications.
 
