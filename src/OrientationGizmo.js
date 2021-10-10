@@ -1,6 +1,6 @@
 "use strict";
 
-var THREE = require("three");
+const THREE = require("three");
 
 class OrientationGizmo extends HTMLElement {
 	constructor(camera, options) {
@@ -65,7 +65,7 @@ class OrientationGizmo extends HTMLElement {
 	}
 
 	onMouseMove(evt) {
-		var rect = this.canvas.getBoundingClientRect();
+		const rect = this.canvas.getBoundingClientRect();
 		this.mouse = new THREE.Vector3(evt.clientX - rect.left, evt.clientY - rect.top, 0);
 	}
 
@@ -106,17 +106,17 @@ class OrientationGizmo extends HTMLElement {
 
 		// Calculate the rotation matrix from the camera
 		let rotMat = new THREE.Matrix4().makeRotationFromEuler(this.camera.rotation);
-		let invRotMat = new THREE.Matrix4().getInverse(rotMat);
+		let invRotMat = rotMat.clone().invert();
 
 		for (var bubble of this.bubbles) {
 			bubble.position = this.getBubblePosition(bubble.direction.clone().applyMatrix4(invRotMat));
 		}
 
 		// Generate a list of layers to draw
-		var layers = [];
-		for (var axis in this.bubbles) {
+		const layers = [];
+		for (let axis in this.bubbles) {
 			// Check if the name starts with a negative and dont add it to the layer list if secondary axis is turned off
-			if (this.options.showSecondary == true || axis[0] != "-") {
+			if (this.options.showSecondary === true || axis[0] !== "-") {
 				layers.push(this.bubbles[axis]);
 			}
 		}
@@ -128,11 +128,11 @@ class OrientationGizmo extends HTMLElement {
 		this.selectedAxis = null;
 
 		if (this.mouse) {
-			var closestDist = Infinity;
+			let closestDist = Infinity;
 
 			// Loop through each layer
 			for (var bubble of layers) {
-				var distance = this.mouse.distanceTo(bubble.position);
+				const distance = this.mouse.distanceTo(bubble.position);
 
 				// Only select the axis if its closer to the mouse than the previous or if its within its bubble circle
 				if (distance < closestDist || distance < bubble.size) {
@@ -148,11 +148,11 @@ class OrientationGizmo extends HTMLElement {
 
 	drawLayers(layers) {
 		// For each layer, draw the bubble
-		for (var bubble of layers) {
-			var color = bubble.color;
+		for (let bubble of layers) {
+			let color = bubble.color;
 
 			// Find the color
-			if (this.selectedAxis == bubble) {
+			if (this.selectedAxis === bubble) {
 				color = "#FFFFFF";
 			} else if (bubble.position.z >= -0.01) {
 				color = bubble.color[0]
