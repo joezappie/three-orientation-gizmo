@@ -29,7 +29,7 @@ Then just create a new Orientation Gizmo, passing in the Three JS Camera to use 
 
 ```js
 var orientationGizmo = new OrientationGizmo(camera, { size: 100, padding: 8 });
-document.getElementById("body").appendChild(orientationGizmo);
+document.body.appendChild(orientationGizmo);
 ```
 
 This library will not rotate your camera for you, but it will give you the direction clicked:
