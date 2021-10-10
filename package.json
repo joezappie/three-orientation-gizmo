@@ -1,6 +1,6 @@
 {
     "name": "three-orientation-gizmo",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Creates an orientation gizmo (aka view cube) showing the rotation of the camera for Three JS.",
     "main": "dist/OrientationGizmo.js",
     "directories": {

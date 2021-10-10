@@ -145,17 +145,19 @@
             vertexColors: THREE.FaceColors
         });
 
-        // Generate colors for each face of cube
-        var colors = [new THREE.Color(1, 0, 0), new THREE.Color(0, 1, 0), new THREE.Color(0, 0, 1)];
-        for (var i = 0; i < 3; i++) {
-            geometry.faces[4 * i].color = colors[i];
-            geometry.faces[4 * i + 1].color = colors[i];
-            geometry.faces[4 * i + 2].color = colors[i];
-            geometry.faces[4 * i + 3].color = colors[i];
+        const materials = [
+          new THREE.MeshBasicMaterial({color: 'red'}),
+          new THREE.MeshBasicMaterial({color: 'green'}),
+          new THREE.MeshBasicMaterial({color: 'blue'}),
+        ];
+
+        // Assign faces to colors
+        for (let i = 0; i < geometry.groups.length; i++) {
+          geometry.groups[i].materialIndex = Math.floor(i/2);
         }
 
         // Create the cube mesh and add to scene
-        var cube = new THREE.Mesh(geometry, material);
+        var cube = new THREE.Mesh(geometry, materials);
         scene.add(cube);
 
         // Create our orientation gizmo
