@@ -1,7 +1,5 @@
 "use strict";
 
-const THREE = require("three");
-
 class OrientationGizmo extends HTMLElement {
 	constructor(camera, options) {
 		super();
