@@ -28,7 +28,7 @@
     },
     "homepage": "https://github.com/jrj2211/three-orientation-gizmo#readme",
     "dependencies": {
-        "three": "^0.125.0"
+        "three": "^0.137.0"
     },
     "devDependencies": {
         "webpack": "^4.41.6",
